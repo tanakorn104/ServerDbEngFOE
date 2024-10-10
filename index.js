@@ -93,9 +93,10 @@ async function checktoken(token) {
     })
 
     app.post('/',async(req,res)=>{
-        res.send("POST OK");
+        // res.send("POST OK");
         const jsondata = req.body;
         if(jsondata.type == 'Login'){
+
             if(jsondata.token){
                 
                 // var response = await sendRequest(jsondata);
