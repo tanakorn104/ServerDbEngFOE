@@ -1,5 +1,10 @@
 const express = require('express');
 const app = express();
+const corsOptions = {
+    origin: 'https://eng-foe-project.vercel.app', // ระบุโดเมนที่อนุญาต
+    methods: ['GET', 'POST'], // ระบุวิธีการที่อนุญาต
+    credentials: true // อนุญาตให้ส่งข้อมูลประจำตัว (cookies, authorization headers)
+};
 const cors = require('cors')
 const exp = require('constants');
 const { json } = require('body-parser');
@@ -58,7 +63,7 @@ async function checktoken(token) {
     }
 }
 
-    app.use(cors());
+    app.use(cors(corsOptions));
     app.use(express.json());
     app.use(express.urlencoded({
         extended:true
