@@ -6,7 +6,11 @@ const { json } = require('body-parser');
 const axios = require('axios');
 
 const PORT =process.env.PORT||3000
-
+const corsOptions = {
+    origin: 'https://eng-foe-project.vercel.app', // ระบุโดเมนที่อนุญาต
+    methods: ['GET', 'POST'], // ระบุวิธีการที่อนุญาต
+    credentials: true // อนุญาตให้ส่งข้อมูลประจำตัว (cookies, authorization headers)
+};
 async function sendRequest(json) {
     // const url = 'https://script.google.com/macros/s/AKfycbwuNStp1mOywajvKIMaJnPQBWox-zjSy8uui4xqmE1loYqsP4xJ9GBCeVFF-57R1nS5zA/exec';
     const url = 'https://script.google.com/macros/s/AKfycbx00vm_iTaKFoi86ZIaQxvG8BjAExSPArP2PINgx8mCZ_JqTwbM5PqbgZJdLyzXe82Y8g/exec';
@@ -58,7 +62,7 @@ async function checktoken(token) {
     }
 }
 
-    app.use(cors());
+    app.use(cors(corsOptions));
     app.use(express.json());
     app.use(express.urlencoded({
         extended:true
