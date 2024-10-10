@@ -5,6 +5,7 @@ const exp = require('constants');
 const { json } = require('body-parser');
 const axios = require('axios');
 
+const PORT =process.env.PORT||3000
 
 async function sendRequest(json) {
     // const url = 'https://script.google.com/macros/s/AKfycbwuNStp1mOywajvKIMaJnPQBWox-zjSy8uui4xqmE1loYqsP4xJ9GBCeVFF-57R1nS5zA/exec';
@@ -67,6 +68,10 @@ async function checktoken(token) {
         res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
         next();
     });
+    app.listen(PORT,()=>{
+        console.log("Start Server with express at port "+PORT);
+    })
+    
     // app.post('/',async(req,res)=>{
     //     const jsondata = req.body;
         
@@ -86,7 +91,7 @@ async function checktoken(token) {
     app.get('/',(req,res)=>{
         res.send("Hello GET From Server");
     })
-    app.post('/postest',(req,res)=>{
+    app.post('/',(req,res)=>{
         res.send("Hello POST From Server");
     })
     app.post('/maindata',async(req,res)=>{
@@ -173,10 +178,7 @@ async function checktoken(token) {
     })
 
     
-    app.listen(9999,()=>{
-        console.log("Start Server with express at port 9999");
-    })
-    
+
 
 module.exports =app;
 
