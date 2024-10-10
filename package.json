@@ -14,10 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "nodemon": "^3.1.4",
-    "react-daterange-picker": "^2.0.1",
-    "react-dom": "^18.3.1",
-    "react-multi-date-picker": "^4.5.2",
-    "uuid": "^10.0.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {},
   "keywords": []
