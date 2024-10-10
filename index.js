@@ -10,8 +10,8 @@ const PORT =process.env.PORT||3000
 async function sendRequest(json) {
     // const url = 'https://script.google.com/macros/s/AKfycbwuNStp1mOywajvKIMaJnPQBWox-zjSy8uui4xqmE1loYqsP4xJ9GBCeVFF-57R1nS5zA/exec';
     const url = 'https://script.google.com/macros/s/AKfycbx00vm_iTaKFoi86ZIaQxvG8BjAExSPArP2PINgx8mCZ_JqTwbM5PqbgZJdLyzXe82Y8g/exec';
-    console.log("send");
-    console.log(json);
+    // console.log("send");
+    // console.log(json);
 
     try{
         const response = await axios.post(url,
@@ -91,10 +91,8 @@ async function checktoken(token) {
     app.get('/',(req,res)=>{
         res.send("Hello GET From Server");
     })
-    app.post('/',(req,res)=>{
-        res.send("Hello POST From Server");
-    })
-    app.post('/maindata',async(req,res)=>{
+
+    app.post('/',async(req,res)=>{
         res.send("POST OK");
         const jsondata = req.body;
         if(jsondata.type == 'Login'){
