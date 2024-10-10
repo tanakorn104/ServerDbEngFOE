@@ -84,9 +84,13 @@ async function checktoken(token) {
         
     // })
     app.get('/',(req,res)=>{
-        res.send("Hello From Server");
+        res.send("Hello GET From Server");
+    })
+    app.post('/postest',(req,res)=>{
+        res.send("Hello POST From Server");
     })
     app.post('/maindata',async(req,res)=>{
+        res.send("POST OK");
         const jsondata = req.body;
         if(jsondata.type == 'Login'){
             if(jsondata.token){
