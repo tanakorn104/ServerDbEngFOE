@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const corsOptions = {
-    origin: 'https://dbengfoe.vercel.app', // ระบุโดเมนที่อนุญาต
+    origin: 'https://dbengfoe.vercel.app/', // ระบุโดเมนที่อนุญาต
     methods: ['GET', 'POST'], // ระบุวิธีการที่อนุญาต
     credentials: true // อนุญาตให้ส่งข้อมูลประจำตัว (cookies, authorization headers)
 };
@@ -153,7 +153,7 @@ async function checktoken(token) {
                         res.json(JSON.stringify({type:'fail',rank:'guest'}));
                         
                     }else{
-                        if(!['getoverviewdataforeachorganiz','getprojectbyyear','getoverviewbyyear'].includes(jsondata.type)&&rankuser.rank=='viewer'){
+                        if(!['getoverviewdataforeachorganiz','getprojectbyyear','getoverviewbyyear','getrecipientscurrentcap','getallmaincap'].includes(jsondata.type)&&rankuser.rank=='viewer'){
                             response = JSON.stringify({type:'fail',message:'คุณไม่มีสิทเข้าถึงการใช้งาน'})
                         }else{
                             if(userdataformtoken.type=='fail'){
