@@ -5,9 +5,11 @@ const exp = require('constants');
 const { json } = require('body-parser');
 const axios = require('axios');
 
-const PORT =process.env.PORT||3000
+// const PORT =process.env.PORT||3000
+const PORT =8888
 const corsOptions = {
-    origin: 'https://eng-foe-project.vercel.app', // ระบุโดเมนที่อนุญาต
+    // origin: 'https://eng-foe-project.vercel.app', // ระบุโดเมนที่อนุญาต
+    origin: 'http://localhost:5173', // ระบุโดเมนที่อนุญาต
     methods: ['GET', 'POST'], // ระบุวิธีการที่อนุญาต
     credentials: true // อนุญาตให้ส่งข้อมูลประจำตัว (cookies, authorization headers)
 };
@@ -38,6 +40,7 @@ async function sendRequest(json) {
     
 }
 async function checktoken(token) {
+    console.log(token)
     const urlcheck = `https://oauth2.googleapis.com/tokeninfo?access_token=${token}`;
     try {
         const response = await fetch(urlcheck);
@@ -152,7 +155,7 @@ async function checktoken(token) {
                         res.json(JSON.stringify({type:'fail',rank:'guest'}));
                         
                     }else{
-                        if(!['getoverviewdataforeachorganiz','getprojectbyyear','getoverviewbyyear'].includes(jsondata.type)&&rankuser.rank=='viewer'){
+                        if(!['getoverviewdataforeachorganiz','getprojectbyyear','getoverviewbyyear','getrecipientscurrentcap','getallmaincap'].includes(jsondata.type)&&rankuser.rank=='viewer'){
                             response = JSON.stringify({type:'fail',message:'คุณไม่มีสิทเข้าถึงการใช้งาน'})
                         }else{
                             if(userdataformtoken.type=='fail'){
