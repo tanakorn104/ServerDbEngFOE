@@ -4,7 +4,7 @@
   "description": "ServerForEngDb",
   "main": "index.js",
   "scripts": {
-    "vercel-build": "mkdir -p dist && cp -r * dist/",
+    "vercel-build": "echo 'No build needed for Express project'",
   "start": "node index.js"
   },
   "author": "Park.dexv",
