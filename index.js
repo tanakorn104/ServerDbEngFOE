@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const corsOptions = {
-    origin: 'https://eng-foe-project.vercel.app', // ระบุโดเมนที่อนุญาต
+    origin: 'https://dbengfoe.vercel.app', // ระบุโดเมนที่อนุญาต
     methods: ['GET', 'POST'], // ระบุวิธีการที่อนุญาต
     credentials: true // อนุญาตให้ส่งข้อมูลประจำตัว (cookies, authorization headers)
 };
