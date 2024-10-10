@@ -57,7 +57,6 @@ async function checktoken(token) {
     }
 }
 
-async function main(){
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({
@@ -84,6 +83,9 @@ async function main(){
     //     // res.end();
         
     // })
+    app.get('/fortestserver',(req,res)=>{
+        res.send("Hello From Server");
+    })
     app.post('/maindata',async(req,res)=>{
         const jsondata = req.body;
         if(jsondata.type == 'Login'){
@@ -171,8 +173,7 @@ async function main(){
         console.log("Start Server with express at port 9999");
     })
     
-}
-main();
+
 module.exports =app;
 
 
