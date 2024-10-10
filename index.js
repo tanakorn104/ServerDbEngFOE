@@ -83,7 +83,7 @@ async function checktoken(token) {
     //     // res.end();
         
     // })
-    app.get('/fortestserver',(req,res)=>{
+    app.get('/',(req,res)=>{
         res.send("Hello From Server");
     })
     app.post('/maindata',async(req,res)=>{
