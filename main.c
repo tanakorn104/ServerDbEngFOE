@@ -1,6 +1,84 @@
 // Online C compiler to run C program online
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
+// Online C compiler to run C program online
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int checkerror(char *mainstr){
+   if(!((*mainstr>=48)&&(*mainstr<58))){
+       printf("ERROR\n");
+       return 0;
+   }
+    while(*mainstr !='\0'){
+        if(!(*mainstr==43||*mainstr==45||((*mainstr>=48)&&(*mainstr<58)))){
+            printf("ERROR\n");
+            return 0;
+        }
+        mainstr++;
+    }
+    if( *mainstr--==43||*mainstr--==45){
+        printf("ERROR\n");
+        return 0;
+    }
+    return 1;
+}
+int cal(char *equ,int* result){
+    char temp[64];
+    int sign = 1;
+    strcpy(temp,equ);
+    char *token = strtok(equ,"+-");
+
+    while(token!=NULL){
+        (*result) = *result+(atoi(token)*sign);
+        (*(temp+strlen(token))=='-')?sign=-1:0;
+    token = strtok(NULL,"+-");
+    
+    }
+    return 1;
+  
+}
+int main() {
+    char equ[64];
+    char temp[64];
+    int result = 0;
+    int* ptrresult = &result;
+    printf("Enter Equation :");
+    scanf("%63[^\n]s",equ);
+    strcpy(temp,equ);
+    while(strcmp(equ,"EXIT")){
+        (checkerror(equ))&&cal(equ,ptrresult)&&printf("%s = %d\n",temp,result);
+        printf("Enter Equation :");
+        scanf(" %63[^\n]s",equ);
+        strcpy(temp,equ);
+    }
+    printf("Bye!");
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 char getFirstLetterIfNotUgly(char *s){
     char justuglyword[20][6] = {
         "i","of","the","on","at","for","with","a","an","in",
@@ -117,3 +195,31 @@ int main() {
     
     return 0;
 }
+
+
+
+
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char justuglystr[1024];
+    printf("Enter ugly sentence what u want and this shit will make some happy to fucking smile:) :");
+    scanf("%[^\n]s",justuglystr);
+    
+    char* justsomepointerTocatchHappy = strstr(justuglystr,"happy");
+    char* cursorForwhatyouwant = justuglystr;
+    while(*cursorForwhatyouwant!='\0'){
+        if(cursorForwhatyouwant == justsomepointerTocatchHappy){
+            printf("happy :)");
+            cursorForwhatyouwant+=5;
+            justsomepointerTocatchHappy = strstr(cursorForwhatyouwant,"happy");
+        }else{
+            printf("%c",*cursorForwhatyouwant);
+            cursorForwhatyouwant++;
+        }
+        
+    }
+    
+    return 0;
