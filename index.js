@@ -145,6 +145,11 @@ app.get('/', (req, res) => {
     res.send(`Hello GET from Server`);
 
 })
+app.get('/redirectest', (req, res) => {
+    // res.send(`${JSON.stringify(req.params)} + ${JSON.stringify(req.query)}`);
+    res.redirect('www.google.com')
+
+})
 
 app.get("/auth/google/login", (req, res) => {
     // console.log(process.env.CLIENT_ID);
