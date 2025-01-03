@@ -134,7 +134,7 @@ async function checktoken(token) {
 // })
 app.post('/test', (req, res) => {
     // res.send(`${JSON.stringify(req.params)} + ${JSON.stringify(req.query)}`);
-    res.send(`${JSON.stringify(req.body)}`);
+    res.send(`Hello Post from Server`);
 
 })
 app.get('/', (req, res) => {
@@ -331,7 +331,7 @@ app.get("/auth/refreshtoken", async (req, res) => {
                 // console.log(`new acctoken is :${access_token}`)
                 res.cookie('userprivatedata', JSON.stringify({ access_token, rank: userdata.rank }), {
                     httpOnly: true,
-                    secure: false,
+                    secure: true,
                     sameSite: 'Lax',
                     maxAge: data.expires_in * 1000,
                     path: "/"
