@@ -43,6 +43,8 @@ async function sendRequest(json) {
 
 
 
+
+
     // const url = 'https://script.google.com/macros/s/AKfycbx00vm_iTaKFoi86ZIaQxvG8BjAExSPArP2PINgx8mCZ_JqTwbM5PqbgZJdLyzXe82Y8g/exec';
     const gettestver = await axios.get(process.env.URL_FOR_DB);
     console.log(`send ${json.type} at ${(gettestver)}`);
@@ -134,7 +136,7 @@ async function checktoken(token) {
 // })
 app.post('/test', (req, res) => {
     // res.send(`${JSON.stringify(req.params)} + ${JSON.stringify(req.query)}`);
-    res.send(`Hello Post from Server`);
+    res.send(`Hello >Post< from Server`);
 
 })
 app.get('/', (req, res) => {
