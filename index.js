@@ -134,7 +134,7 @@ async function checktoken(token) {
 // })
 app.post('/test', (req, res) => {
     // res.send(`${JSON.stringify(req.params)} + ${JSON.stringify(req.query)}`);
-    res.send(`${JSON.stringify(req.body)}`);
+    res.send(`Hello Post from Server`);
 
 })
 app.get('/', (req, res) => {
@@ -152,7 +152,7 @@ app.get("/auth/google/logout", (req, res) => {
     console.log("log out");
     res.clearCookie('userprivatedata', '', {
         httpOnly: true,
-        secure: false,
+        secure: true,
     })
     res.status(200).send("Logout successfully");
 })
