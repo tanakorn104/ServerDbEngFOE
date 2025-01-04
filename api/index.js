@@ -34,9 +34,9 @@ app.use((req, res, next) => {
 });
 
 
-app.listen(PORT, () => {
-    console.log("Start Server with express at port " + PORT);
-})
+// app.listen(PORT, () => {
+//     console.log("Start Server with express at port " + PORT);
+// })
 async function sendRequest(json) {
     //URL_FOR_DB_OLD = https://script.google.com/macros/s/AKfycbx00vm_iTaKFoi86ZIaQxvG8BjAExSPArP2PINgx8mCZ_JqTwbM5PqbgZJdLyzXe82Y8g/exec
 
