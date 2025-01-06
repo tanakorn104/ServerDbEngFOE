@@ -13,7 +13,7 @@
     }
   ],
   "functions": {
-    "api/**.js": {
+    "api/index.js": {
       "maxDuration": 10,
       "cors": {
         "allowMethods": ["GET", "POST", "PUT", "DELETE"],
