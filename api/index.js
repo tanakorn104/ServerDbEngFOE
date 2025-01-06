@@ -160,7 +160,7 @@ app.get("/auth/google/logout", (req, res) => {
     console.log("log out");
     res.clearCookie('userprivatedata', '', {
         httpOnly: true,
-        secure: true,
+        secure: false,
     })
     res.status(200).send("Logout successfully");
 })
