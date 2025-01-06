@@ -206,7 +206,7 @@ app.get("/auth/google/callback", async (req, res) => {
             // console.log(`rank>${JSON.stringify(rank)}`)
             res.cookie('userprivatedata', JSON.stringify({ access_token, rank: rank.rank }), {
                 httpOnly: true,
-                secure: true,
+                secure: false,
                 sameSite: 'Lax',
                 maxAge: expires_in * 1000,
                 path: "/"
@@ -339,7 +339,7 @@ app.get("/auth/refreshtoken", async (req, res) => {
                 // console.log(`new acctoken is :${access_token}`)
                 res.cookie('userprivatedata', JSON.stringify({ access_token, rank: userdata.rank }), {
                     httpOnly: true,
-                    secure: true,
+                    secure: false,
                     sameSite: 'Lax',
                     maxAge: data.expires_in * 1000,
                     path: "/"
