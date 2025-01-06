@@ -18,7 +18,7 @@
       "cors": {
         "allowMethods": ["GET", "POST", "PUT", "DELETE"],
         "allowHeaders": ["Content-Type", "Authorization", "Cookie"],
-        "allowOrigin": "https://your-frontend-domain.com",  // กำหนดโดเมนที่สามารถเข้าถึง API ได้
+        "allowOrigin": "https://dbengfoe.vercel.app",  // กำหนดโดเมนที่สามารถเข้าถึง API ได้
         "allowCredentials": true
       }
     }
