@@ -11,16 +11,5 @@
       "source": "/(.*)",
       "destination": "/api/index.js"
     }
-  ],
-  "functions": {
-    "api/index.js": {
-      "maxDuration": 10,
-      "cors": {
-        "allowMethods": ["GET", "POST", "PUT", "DELETE"],
-        "allowHeaders": ["Content-Type", "Authorization", "Cookie"],
-        "allowOrigin": "https://dbengfoe.vercel.app",
-        "allowCredentials": true
-      }
-    }
-  }
+  ]
 }
