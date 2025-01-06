@@ -27,9 +27,11 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use((req, res, next) => {
-    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-
+    // res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    // res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+ res.setHeader('Access-Control-Allow-Origin', '*');  // อนุญาตการเข้าถึงจากทุกโดเมน
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');  // กำหนดวิธีที่อนุญาต
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');  // กำหนด header ที่อนุญาต
 
     next();
 });
