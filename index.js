@@ -14,8 +14,8 @@ const PORT = 8888
 const RedirectCallBackLoginURL = process.env.RedirectCallBackLoginURL;
 const corsOptions = {
     // origin: 'https://eng-foe-project.vercel.app', // ระบุโดเมนที่อนุญาต แล้วอันนี้อ่ะ? https://dbengfoe.vercel.app/
-    // origin: process.env.CLIENT_ORIGIN, // ระบุโดเมนที่อนุญาต
-    origin: '*', // ระบุโดเมนที่อนุญาต
+    origin: process.env.CLIENT_ORIGIN, // ระบุโดเมนที่อนุญาต
+    // origin: '*', // ระบุโดเมนที่อนุญาต
     methods: ['GET', 'POST'], // ระบุวิธีการที่อนุญาต
     credentials: true // อนุญาตให้ส่งข้อมูลประจำตัว (cookies, authorization headers)
 };
@@ -29,9 +29,11 @@ app.use(express.urlencoded({
 app.use((req, res, next) => {
     // res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
     // res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
- res.setHeader('Access-Control-Allow-Origin', '*');  // อนุญาตการเข้าถึงจากทุกโดเมน
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');  // กำหนดวิธีที่อนุญาต
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');  // กำหนด header ที่อนุญาต
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+//  res.setHeader('Access-Control-Allow-Origin', '*');  // อนุญาตการเข้าถึงจากทุกโดเมน
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');  // กำหนดวิธีที่อนุญาต
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');  // กำหนด header ที่อนุญาต
 
     next();
 });
