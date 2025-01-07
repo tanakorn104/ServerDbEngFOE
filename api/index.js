@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-=======
-require("dotenv").config();
->>>>>>> 9f4db84d109d28fc19740735b408f19adb12b60b
 const express = require('express');
 const app = express();
 const cors = require('cors')
 const exp = require('constants');
 const { json } = require('body-parser');
 const axios = require('axios');
-<<<<<<< HEAD
 require('dotenv').config()
-=======
->>>>>>> 9f4db84d109d28fc19740735b408f19adb12b60b
 const qs = require('qs');
 const cookieParser = require('cookie-parser');
 const jwt = require("jsonwebtoken");
@@ -21,12 +14,8 @@ const PORT = 8888
 const RedirectCallBackLoginURL = process.env.RedirectCallBackLoginURL;
 const corsOptions = {
     // origin: 'https://eng-foe-project.vercel.app', // ระบุโดเมนที่อนุญาต แล้วอันนี้อ่ะ? https://dbengfoe.vercel.app/
-<<<<<<< HEAD
-    origin: process.env.CLIENT_ORIGIN, // ระบุโดเมนที่อนุญาต
-=======
     // origin: process.env.CLIENT_ORIGIN, // ระบุโดเมนที่อนุญาต
     origin: '*', // ระบุโดเมนที่อนุญาต
->>>>>>> 9f4db84d109d28fc19740735b408f19adb12b60b
     methods: ['GET', 'POST'], // ระบุวิธีการที่อนุญาต
     credentials: true // อนุญาตให้ส่งข้อมูลประจำตัว (cookies, authorization headers)
 };
@@ -38,17 +27,11 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use((req, res, next) => {
-<<<<<<< HEAD
-    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-
-=======
     // res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
     // res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
  res.setHeader('Access-Control-Allow-Origin', '*');  // อนุญาตการเข้าถึงจากทุกโดเมน
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');  // กำหนดวิธีที่อนุญาต
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');  // กำหนด header ที่อนุญาต
->>>>>>> 9f4db84d109d28fc19740735b408f19adb12b60b
 
     next();
 });
@@ -63,11 +46,6 @@ async function sendRequest(json) {
 
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 9f4db84d109d28fc19740735b408f19adb12b60b
     // const url = 'https://script.google.com/macros/s/AKfycbx00vm_iTaKFoi86ZIaQxvG8BjAExSPArP2PINgx8mCZ_JqTwbM5PqbgZJdLyzXe82Y8g/exec';
     const gettestver = await axios.get(process.env.URL_FOR_DB);
     console.log(`send ${json.type} at ${(gettestver)}`);
@@ -159,12 +137,7 @@ async function checktoken(token) {
 // })
 app.post('/test', (req, res) => {
     // res.send(`${JSON.stringify(req.params)} + ${JSON.stringify(req.query)}`);
-<<<<<<< HEAD
     res.send(`Hello Post from Server`);
-=======
-
-    res.send(`Hello >Post< from Server`);
->>>>>>> 9f4db84d109d28fc19740735b408f19adb12b60b
 
 })
 app.get('/', (req, res) => {
@@ -172,14 +145,6 @@ app.get('/', (req, res) => {
     res.send(`Hello GET from Server`);
 
 })
-<<<<<<< HEAD
-=======
-app.get('/redirectest', (req, res) => {
-    // res.send(`${JSON.stringify(req.params)} + ${JSON.stringify(req.query)}`);
-    res.redirect('www.google.com')
-
-})
->>>>>>> 9f4db84d109d28fc19740735b408f19adb12b60b
 
 app.get("/auth/google/login", (req, res) => {
     // console.log(process.env.CLIENT_ID);
@@ -236,11 +201,7 @@ app.get("/auth/google/callback", async (req, res) => {
             // console.log(`rank>${JSON.stringify(rank)}`)
             res.cookie('userprivatedata', JSON.stringify({ access_token, rank: rank.rank }), {
                 httpOnly: true,
-<<<<<<< HEAD
-                secure: true,
-=======
                 secure: false,
->>>>>>> 9f4db84d109d28fc19740735b408f19adb12b60b
                 sameSite: 'Lax',
                 maxAge: expires_in * 1000,
                 path: "/"
@@ -373,11 +334,7 @@ app.get("/auth/refreshtoken", async (req, res) => {
                 // console.log(`new acctoken is :${access_token}`)
                 res.cookie('userprivatedata', JSON.stringify({ access_token, rank: userdata.rank }), {
                     httpOnly: true,
-<<<<<<< HEAD
-                    secure: true,
-=======
                     secure: false,
->>>>>>> 9f4db84d109d28fc19740735b408f19adb12b60b
                     sameSite: 'Lax',
                     maxAge: data.expires_in * 1000,
                     path: "/"
