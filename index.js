@@ -1,10 +1,10 @@
-require("dotenv").config();
 const express = require('express');
 const app = express();
 const cors = require('cors')
 const exp = require('constants');
 const { json } = require('body-parser');
 const axios = require('axios');
+require('dotenv').config()
 const qs = require('qs');
 const cookieParser = require('cookie-parser');
 const jwt = require("jsonwebtoken");
