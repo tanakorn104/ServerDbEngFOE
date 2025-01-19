@@ -29,14 +29,28 @@ app.use(express.json());
 app.use(express.urlencoded({
     extended: true
 }));
+// app.use((req, res, next) => {
+//     // res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+//     // res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+//     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+//     res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+//     //  res.setHeader('Access-Control-Allow-Origin', '*');  // อนุญาตการเข้าถึงจากทุกโดเมน
+//     //   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');  // กำหนดวิธีที่อนุญาต
+//     //   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');  // กำหนด header ที่อนุญาต
+
+//     next();
+// });
 app.use((req, res, next) => {
-    // res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-    // res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
-    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
-    //  res.setHeader('Access-Control-Allow-Origin', '*');  // อนุญาตการเข้าถึงจากทุกโดเมน
-    //   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');  // กำหนดวิธีที่อนุญาต
-    //   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');  // กำหนด header ที่อนุญาต
+    const allowedOrigins = [process.env.CLIENT_ORIGIN]; // ระบุโดเมนที่อนุญาต
+    const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin); // อนุญาตเฉพาะโดเมนที่กำหนด
+    }
+
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // วิธีที่อนุญาต
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // header ที่อนุญาต
+    res.setHeader('Access-Control-Allow-Credentials', 'true'); // อนุญาตให้ส่ง cookie
 
     next();
 });
@@ -229,7 +243,7 @@ app.get("/auth/google/callback", async (req, res) => {
             res.cookie('userprivatedata', JSON.stringify({ access_token, rank: rank.rank }), {
                 httpOnly: true,
                 secure: true,
-                sameSite: 'Lax',
+                sameSite: 'None',
                 maxAge: expires_in * 1000,
                 path: "/"
             })
@@ -362,7 +376,7 @@ app.get("/auth/refreshtoken", async (req, res) => {
                     res.cookie('userprivatedata', JSON.stringify({ access_token, rank: userdata.rank }), {
                         httpOnly: true,
                         secure: true,
-                        sameSite: 'Lax',
+                        sameSite: 'None',
                         maxAge: data.expires_in * 1000,
                         path: "/"
                     })
