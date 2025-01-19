@@ -41,7 +41,7 @@ app.use(express.urlencoded({
 //     next();
 // });
 app.use((req, res, next) => {
-    const allowedOrigins = [process.env.CLIENT_ORIGIN]; // ระบุโดเมนที่อนุญาต
+    const allowedOrigins = [process.env.CLIENT_ORIGIN,process.env.Base_SERVER_URL]; // ระบุโดเมนที่อนุญาต
     const origin = req.headers.origin;
 
     if (allowedOrigins.includes(origin)) {
