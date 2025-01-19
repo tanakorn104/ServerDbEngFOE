@@ -9,6 +9,9 @@ const qs = require('qs');
 const cookieParser = require('cookie-parser');
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto")
+const fs = require('fs')
+const path = require('path')
+const https = require('https')
 // const PORT =process.env.PORT||3000
 const PORT = 8888
 const RedirectCallBackLoginURL = process.env.RedirectCallBackLoginURL;
@@ -38,8 +41,29 @@ app.use((req, res, next) => {
     next();
 });
 
+const parentdir = path.join(__dirname,"..")
+const option = {
+    key:fs.readFileSync(path.join(parentdir,'localhost.key')),
+    cert:fs.readFileSync(path.join(parentdir,'localhost.crt')),
+    secureProtocol: 'TLS_method',  // ใช้ TLS ที่รองรับในปัจจุบัน
+    ciphers: [
+        'TLS_AES_128_GCM_SHA256',
+        'TLS_AES_256_GCM_SHA384',
+        'TLS_CHACHA20_POLY1305_SHA256',
+        'ECDHE-ECDSA-AES128-GCM-SHA256',
+        'ECDHE-RSA-AES128-GCM-SHA256',
+        'ECDHE-ECDSA-AES256-GCM-SHA384',
+        'ECDHE-RSA-AES256-GCM-SHA384',
+    ].join(':'),
+    honorCipherOrder: true,
+}
 
-// app.listen(PORT, () => {
+
+https.createServer(option,app).listen(8888,()=>{
+    console.log("https server node js run at port 8888")
+})
+
+// app.listen(option,PORT, () => {
 //     console.log("Start Server with express at port " + PORT);
 // })
 
