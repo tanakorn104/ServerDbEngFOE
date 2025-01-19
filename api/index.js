@@ -15,16 +15,16 @@ const https = require('https')
 // const PORT =process.env.PORT||3000
 const PORT = 8888
 const RedirectCallBackLoginURL = process.env.RedirectCallBackLoginURL;
-const corsOptions = {
-    // origin: 'https://eng-foe-project.vercel.app', // ระบุโดเมนที่อนุญาต แล้วอันนี้อ่ะ? https://dbengfoe.vercel.app/
-    origin: process.env.CLIENT_ORIGIN, // ระบุโดเมนที่อนุญาต
-    // origin: '*', // ระบุโดเมนที่อนุญาต
-    methods: ['GET', 'POST'], // ระบุวิธีการที่อนุญาต
-    credentials: true // อนุญาตให้ส่งข้อมูลประจำตัว (cookies, authorization headers)
-};
+// const corsOptions = {
+//     // origin: 'https://eng-foe-project.vercel.app', // ระบุโดเมนที่อนุญาต แล้วอันนี้อ่ะ? https://dbengfoe.vercel.app/
+//     origin: process.env.CLIENT_ORIGIN, // ระบุโดเมนที่อนุญาต
+//     // origin: '*', // ระบุโดเมนที่อนุญาต
+//     methods: ['GET', 'POST'], // ระบุวิธีการที่อนุญาต
+//     credentials: true // อนุญาตให้ส่งข้อมูลประจำตัว (cookies, authorization headers)
+// };
 
 app.use(cookieParser());
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({
     extended: true
