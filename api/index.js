@@ -73,9 +73,9 @@ const option = {
 }
 
 
-https.createServer(option,app).listen(8888,()=>{
-    console.log("https server node js run at port 8888")
-})
+// https.createServer(option,app).listen(8888,()=>{
+//     console.log("https server node js run at port 8888")
+// })
 
 // app.listen(option,PORT, () => {
 //     console.log("Start Server with express at port " + PORT);
@@ -195,8 +195,8 @@ app.get("/auth/google/login", (req, res) => {
 app.get("/auth/google/logout", (req, res) => {
     console.log("log out");
     res.clearCookie('userprivatedata', '', {
-        httpOnly: true,
-        secure: true,
+        httpOnly: false,
+        secure: false,
     })
     res.status(200).send("Logout successfully");
 })
@@ -241,8 +241,8 @@ app.get("/auth/google/callback", async (req, res) => {
         if (access_token && rank) {
             // console.log(`rank>${JSON.stringify(rank)}`)
             res.cookie('userprivatedata', JSON.stringify({ access_token, rank: rank.rank }), {
-                httpOnly: true,
-                secure: true,
+                httpOnly: false,
+                secure: false,
                 sameSite: 'None',
                 maxAge: expires_in * 1000,
                 path: "/"
@@ -374,8 +374,8 @@ app.get("/auth/refreshtoken", async (req, res) => {
                     const { access_token } = refreshResponse.data;
                     // console.log(`new acctoken is :${access_token}`)
                     res.cookie('userprivatedata', JSON.stringify({ access_token, rank: userdata.rank }), {
-                        httpOnly: true,
-                        secure: true,
+                        httpOnly: false,
+                        secure: false,
                         sameSite: 'None',
                         maxAge: data.expires_in * 1000,
                         path: "/"
