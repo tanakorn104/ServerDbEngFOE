@@ -41,7 +41,7 @@ app.use(express.urlencoded({
 //     next();
 // });
 app.use((req, res, next) => {
-    const allowedOrigins = [process.env.CLIENT_ORIGIN,process.env.Base_SERVER_URL]; // ระบุโดเมนที่อนุญาต
+    const allowedOrigins = [process.env.CLIENT_ORIGIN, process.env.Base_SERVER_URL]; // ระบุโดเมนที่อนุญาต
     const origin = req.headers.origin;
 
     if (allowedOrigins.includes(origin)) {
@@ -55,10 +55,10 @@ app.use((req, res, next) => {
     next();
 });
 
-const parentdir = path.join(__dirname,"..")
+const parentdir = path.join(__dirname, "..")
 const option = {
-    key:fs.readFileSync(path.join(parentdir,'localhost.key')),
-    cert:fs.readFileSync(path.join(parentdir,'localhost.crt')),
+    key: fs.readFileSync(path.join(parentdir, 'localhost.key')),
+    cert: fs.readFileSync(path.join(parentdir, 'localhost.crt')),
     secureProtocol: 'TLS_method',  // ใช้ TLS ที่รองรับในปัจจุบัน
     ciphers: [
         'TLS_AES_128_GCM_SHA256',
@@ -73,9 +73,9 @@ const option = {
 }
 
 
-// https.createServer(option,app).listen(8888,()=>{
-//     console.log("https server node js run at port 8888")
-// })
+https.createServer(option, app).listen(8888, () => {
+    console.log("https server node js run at port 8888")
+})
 
 // app.listen(option,PORT, () => {
 //     console.log("Start Server with express at port " + PORT);
@@ -194,10 +194,10 @@ app.get("/auth/google/login", (req, res) => {
 })
 app.get("/auth/google/logout", (req, res) => {
     console.log("log out");
-    res.clearCookie('userprivatedata', '', {
-        httpOnly: true,
-        secure: true,
-    })
+    // res.clearCookie('userprivatedata', '', {
+    //     httpOnly: true,
+    //     secure: true,
+    // })
     res.status(200).send("Logout successfully");
 })
 
@@ -238,16 +238,16 @@ app.get("/auth/google/callback", async (req, res) => {
             },
         })
 
-        if (access_token && rank) {
-            // console.log(`rank>${JSON.stringify(rank)}`)
-            res.cookie('userprivatedata', JSON.stringify({ access_token, rank: rank.rank }), {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'None',
-                maxAge: expires_in * 1000,
-                path: "/"
-            })
-        }
+        // if (access_token && rank) {
+        //     // console.log(`rank>${JSON.stringify(rank)}`)
+        //     res.cookie('userprivatedata', JSON.stringify({ access_token, rank: rank.rank }), {
+        //         httpOnly: true,
+        //         secure: true,
+        //         sameSite: 'None',
+        //         maxAge: expires_in * 1000,
+        //         path: "/"
+        //     })
+        // }
         if (rank != 'guest') {
             const savetoken = await sendRequest({
                 type: "edituserrowdatawithprimarykey",
@@ -266,7 +266,7 @@ app.get("/auth/google/callback", async (req, res) => {
         }
         // console.log(savetoken);
 
-        const datasEncoded = encodeURIComponent(JSON.stringify({ profile: { email: profile.email, name: profile.name }, rank: rank.rank }));
+        const datasEncoded = encodeURIComponent(JSON.stringify({ profile: { email: profile.email, name: profile.name }, rank: rank.rank, acc: access_token }));
         res.redirect(`${process.env.CLIENT_ORIGIN}/AuthLogin?dataslogin=${datasEncoded}`);
 
     } catch (e) {
@@ -277,10 +277,12 @@ app.get("/auth/google/callback", async (req, res) => {
 });
 
 app.get("/auth/userinfo", async (req, res) => {
-    if (req.cookies['userprivatedata']) {
-        const usertoken = JSON.parse(req.cookies['userprivatedata']).access_token;
+    const { acc } = req.body
+    // if (req.cookies['userprivatedata']) {
+    //     const usertoken = JSON.parse(req.cookies['userprivatedata']).access_token;
 
-    }
+    // }
+    const usertoken = acc
     if (usertoken) {
         try {
             const profile = await getUserProfile(usertoken)
@@ -300,9 +302,12 @@ app.get("/auth/userinfo", async (req, res) => {
         res.status(401).json({ message: "Authentication failed" })
     }
 })
-app.get("/auth/checkmycookieandtoken", async (req, res) => {
-    if (req.cookies['userprivatedata']) {
-        const usertoken = JSON.parse(req.cookies['userprivatedata']).access_token;
+app.post("/auth/checkmycookieandtoken", async (req, res) => {
+    const { acc } = req.body
+    // if (req.cookies['userprivatedata']) {
+    if (acc) {
+        // const usertoken = JSON.parse(req.cookies['userprivatedata']).access_token;
+        const usertoken = acc
         if (usertoken) {
             try {
 
@@ -344,8 +349,10 @@ app.get("/auth/checkmycookieandtoken", async (req, res) => {
     }
 })
 app.get("/auth/refreshtoken", async (req, res) => {
-    if (req.cookies['userprivatedata']) {
-        const usertoken = JSON.parse(req.cookies['userprivatedata']).access_token;
+    const { acc } = req.body
+    // if (req.cookies['userprivatedata']) {
+    if (acc) {
+        const usertoken = acc
         if (usertoken) {
             try {
 
@@ -373,14 +380,14 @@ app.get("/auth/refreshtoken", async (req, res) => {
 
                     const { access_token } = refreshResponse.data;
                     // console.log(`new acctoken is :${access_token}`)
-                    res.cookie('userprivatedata', JSON.stringify({ access_token, rank: userdata.rank }), {
-                        httpOnly: true,
-                        secure: true,
-                        sameSite: 'None',
-                        maxAge: data.expires_in * 1000,
-                        path: "/"
-                    })
-                    res.status(200).json({ message: "Access Token refreshed" });
+                    // res.cookie('userprivatedata', JSON.stringify({ access_token, rank: userdata.rank }), {
+                    //     httpOnly: true,
+                    //     secure: true,
+                    //     sameSite: 'None',
+                    //     maxAge: data.expires_in * 1000,
+                    //     path: "/"
+                    // })
+                    res.status(200).json({ token: access_token });
                     return;
                 } else {
                     throw "something error with token";
@@ -438,14 +445,17 @@ app.get("/auth/refreshtoken", async (req, res) => {
 app.post('/', async (req, res) => {
     // res.send("POST OK");
     const jsondata = req.body;
+    const { acc, role } = req.body
     console.log(`send ${jsondata.type}`);
     let usertoken
     let userrank
-    if (req.cookies['userprivatedata']) {
-        usertoken = JSON.parse(req.cookies['userprivatedata']).access_token;
-        userrank = JSON.parse(req.cookies['userprivatedata']).rank;
+    if (acc && role) {
+        // usertoken = JSON.parse(req.cookies['userprivatedata']).access_token;
+         usertoken = acc
+         userrank = role
+        // userrank = JSON.parse(req.cookies['userprivatedata']).rank;
     } else {
-        console.log("dont have cookie");
+        console.log("dont have cookie<");
         return res.status(302).redirect(`${process.env.CLIENT_ORIGIN}/logout`);
     }
     if (usertoken) {
@@ -471,7 +481,7 @@ app.post('/', async (req, res) => {
                             // ตอบหาเพจไม่เจอไปดีกว่า
                             response = JSON.stringify({ type: 'fail', message: 'คุณไม่มีสิทเข้าถึงการใช้งาน' })
                         } else {
-
+                            response = JSON.stringify({ type: 'fail', message: 'กำลังปิดปรับปรุง' })
                             response = await sendRequest(jsondata);
                         }
 
